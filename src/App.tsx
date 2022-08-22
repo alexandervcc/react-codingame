@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
+import styles from "./App.module.css";
 import Header from "./Components/atoms/Header";
 import ClientCreate from "./Components/organisms/ClientCreate";
 import ClientDetails from "./Components/organisms/ClientDetails";
@@ -15,25 +15,25 @@ function App() {
   return (
     <>
       <Header />
-      <div>
-        <div>
-          <SideNavigator />
-        </div>
-        <div>
-          <h2>Content</h2>
-          <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="clientes" element={<Clients />}></Route>
-            <Route path="clientes/:clienteId" element={<ClientDetails />} />
-            <Route path="clientes/new" element={<ClientCreate />} />
+      <div className={styles.Container}>
+        <div className={styles.Row}>
+          <div className={styles.SideBar}>
+            <SideNavigator />
+          </div>
+          <div className={styles.Content}>
+            <Routes>
+              <Route path="/" element={<Main />} />
+              <Route path="clientes" element={<Clients />}></Route>
+              <Route path="clientes/:clienteId" element={<ClientDetails />} />
+              <Route path="clientes/new" element={<ClientCreate />} />
 
-            <Route path="cuentas" element={<Account />} />
-            
+              <Route path="cuentas" element={<Account />} />
 
-            <Route path="movimientos" element={<Movement />} />
-            <Route path="reportes" element={<Reports />} />
-            <Route path="*" element={<Route404 />} />
-          </Routes>
+              <Route path="movimientos" element={<Movement />} />
+              <Route path="reportes" element={<Reports />} />
+              <Route path="*" element={<Route404 />} />
+            </Routes>
+          </div>
         </div>
       </div>
     </>
