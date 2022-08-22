@@ -1,36 +1,72 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { IClient } from "../../models/IClient.interface";
-import { ServerResponse } from "../../models/Response.interface";
-import { createClient } from "../../services/Client.service";
+import { IClient } from "../../../models/IClient.interface";
+import { ServerResponse } from "../../../models/Response.interface";
+import { getClientById, updateClient } from "../../../services/Client.service";
 
-import styles from "./ClientFormCreate.module.css";
+import styles from "./ClientFormEdit.module.css";
+import { useNavigate, useParams } from "react-router-dom";
 
-interface Props {
-  cliente?: IClient;
-}
+const isNumber = (str: string): boolean => {
+  if (typeof str !== "string") {
+    return false;
+  }
 
-const ClientFormCreate = ({ cliente }: Props) => {
+  if (str.trim() === "") {
+    return false;
+  }
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IClient>();
+  return !Number.isNaN(Number(str));
+};
+
+const ClientFormEdit = () => {
+  const params = useParams();
+  const navigate = useNavigate();
+  const clienteId = params.clienteId!!;
+
+  const { register, handleSubmit, reset } = useForm<IClient>();
+
+  useEffect(() => {
+    const obtenerCliente = async () => {
+      if (!isNumber(clienteId)) {
+        navigate("/404");
+      }
+      const respuesta = await getClientById(clienteId);
+      if (!respuesta.ok) {
+        navigate("/404");
+      }
+      const reponseBody = (await respuesta.json()) as ServerResponse;
+      const clienteAEditar = reponseBody.data as IClient;
+      reset({ ...clienteAEditar });
+    };
+    obtenerCliente();
+  });
 
   const onSubmit = async (newClient: IClient) => {
-    const response = await createClient(newClient);
+    console.log("actualizando: ", newClient);
+    const response = await updateClient(newClient);
     const body = (await response.json()) as ServerResponse;
+    console.log("res:", body);
     if (response.ok) {
       alert(body.title);
     } else {
-      alert(`${body.title}: ${body.error}`);
+      if (body.error) {
+        alert(`${body.title}:- ${body.error}`);
+      } else {
+        const listaErrores = body.errorsList;
+        let errores = "";
+        Object.keys(listaErrores).forEach(
+          (k) => (errores += k + ": " + listaErrores[k])
+        );
+        alert(`${body.title}: ${errores}`);
+      }
     }
   };
 
   return (
     <>
       <div>
-        <h2>Crear Cliente</h2>
+        <h2>Editar Cliente</h2>
         <hr />
         <div className={styles.form}></div>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -131,4 +167,4 @@ const ClientFormCreate = ({ cliente }: Props) => {
   );
 };
 
-export default ClientFormCreate;
+export default ClientFormEdit;

@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { IClient } from "../../models/IClient.interface";
+import { IClient } from "../../../models/IClient.interface";
 import {
   getAllClients,
   searchClientByName,
-} from "../../services/Client.service";
-import Buscador from "../molecules/Buscador";
-import ClientHolder from "../molecules/ClientHolder";
+} from "../../../services/Client.service";
+import Buscador from "../../molecules/Buscador";
+import ClientHolder from "../../molecules/ClientHolder";
 import styles from "./Clients.module.css";
 
 const getClientes = async (callback: (param: IClient[]) => any) => {
