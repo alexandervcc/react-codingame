@@ -1,8 +1,8 @@
-import { IClient } from "../models/IClient.interface";
+import { ServerResponse } from "../models/Response.interface";
 
-export const getAllClients = async (): Promise<IClient[]> => {
-  const response: Response = await fetch(
-    "http://localhost:8080/api/clientes/all",
+export const getAllClients = async (): Promise<ServerResponse> => {
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}/clientes/all`,
     {
       method: "GET",
       headers: {
@@ -10,14 +10,14 @@ export const getAllClients = async (): Promise<IClient[]> => {
       },
     }
   );
-  const allClients = response.json() as unknown as IClient[];
+  const allClients = await response.json();
 
-  return allClients;
+  return allClients as ServerResponse;
 };
 
-export const searchClientByName = async (name: string): Promise<IClient[]> => {
+export const searchClientByName = async (name: string): Promise<ServerResponse> => {
   const response: Response = await fetch(
-    `http://localhost:8080/api/clientes/?name=${name}`,
+    `localhost:8080/api/clientes?nombre=${name}`,
     {
       method: "GET",
       headers: {
@@ -25,7 +25,7 @@ export const searchClientByName = async (name: string): Promise<IClient[]> => {
       },
     }
   );
-  const foundClients = response.json() as unknown as IClient[];
+  const foundClients = await response.json();
 
-  return foundClients;
+  return  foundClients as ServerResponse;
 };

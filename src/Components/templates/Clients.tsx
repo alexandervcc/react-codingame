@@ -11,8 +11,8 @@ const Clients = () => {
   useEffect(() => {
     const getClientes = async () => {
       const fetchedClients = await getAllClients();
-      console.log("c: ", fetchedClients);
-      setListaClientes(fetchedClients);
+      const listClients = fetchedClients.dataList as IClient[];
+      setListaClientes(listClients);
     };
     getClientes();
   }, []);
