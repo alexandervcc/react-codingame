@@ -1,0 +1,10 @@
+.header{
+    width: 100%;
+    background-color: red;
+    border-bottom: solid 1px rgb(94, 94, 94);
+}
+
+.imgLogo{
+    width: 10rem;
+    height: 5rem;
+}
