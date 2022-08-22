@@ -13,7 +13,7 @@ const ClientFormEdit = () => {
   const navigate = useNavigate();
   const clienteId = params.clienteId!!;
 
-  const { register, handleSubmit, reset } = useForm<IClient>();
+  const { register, handleSubmit, setValue } = useForm<IClient>();
 
   useEffect(() => {
     const obtenerCliente = async () => {
@@ -26,7 +26,14 @@ const ClientFormEdit = () => {
       }
       const reponseBody = (await respuesta.json()) as ServerResponse;
       const clienteAEditar = reponseBody.data as IClient;
-      reset({ ...clienteAEditar });
+      setValue("direccion", clienteAEditar.direccion);
+      setValue("contrasena", clienteAEditar.contrasena);
+      setValue("edad", clienteAEditar.edad);
+      setValue("estado", clienteAEditar.estado);
+      setValue("genero", clienteAEditar.genero);
+      setValue("identificacion", clienteAEditar.identificacion);
+      setValue("nombre", clienteAEditar.nombre);
+      setValue("telefono", clienteAEditar.telefono);
     };
     obtenerCliente();
   });
@@ -40,7 +47,7 @@ const ClientFormEdit = () => {
       alert(body.title);
     } else {
       if (body.error) {
-        alert(`${body.title}:- ${body.error}`);
+        alert(`${body.title}: ${body.error}`);
       } else {
         const listaErrores = body.errorsList;
         let errores = "";
@@ -135,18 +142,8 @@ const ClientFormEdit = () => {
           <div>
             <label>
               Estado:
-              <input
-                type="radio"
-                value="true"
-                {...register("estado", { required: true })}
-              />
-              Activado
-              <input
-                type="radio"
-                value="false"
-                {...register("estado", { required: true })}
-              />
-              Desactivado
+              <input type="checkbox" {...register("estado")} />
+              Activado/Desactivado
             </label>
           </div>
           <input type="submit" />

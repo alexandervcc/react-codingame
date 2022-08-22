@@ -3,12 +3,13 @@ import styles from "./App.module.css";
 import Header from "./Components/atoms/Header";
 import SideNavigator from "./Components/organisms/SideNavigator";
 import Account from "./Components/templates/accounts/Account";
+import AccountFormCreate from "./Components/templates/accounts/AccountFormCreate";
+import AccountFormEdit from "./Components/templates/accounts/AccountFormEdit";
 import ClientFormCreate from "./Components/templates/clients/ClientFormCreate";
 import ClientFormEdit from "./Components/templates/clients/ClientFormEdit";
 import Clients from "./Components/templates/clients/Clients";
 import Main from "./Components/templates/Main";
 import Movement from "./Components/templates/Movement";
-import Reports from "./Components/templates/Reports";
 import Route404 from "./Components/templates/Route404";
 
 function App() {
@@ -28,9 +29,10 @@ function App() {
               <Route path="clientes/nuevo" element={<ClientFormCreate />} />
 
               <Route path="cuentas" element={<Account />} />
+              <Route path="cuentas/new/" element={<AccountFormCreate />} />
+              <Route path="cuentas/:cuentaId" element={<AccountFormEdit />} />
 
               <Route path="movimientos" element={<Movement />} />
-              <Route path="reportes" element={<Reports />} />
               <Route path="*" element={<Route404 />} />
             </Routes>
           </div>

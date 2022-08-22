@@ -38,9 +38,6 @@ const AccountHolder = ({ cuenta }: Props) => {
         <p className={styles.ClientData}>
           <b>Activada(Estado):</b> {cuenta.estado ? "Activa" : "Inactiva"}
         </p>
-        <p className={styles.ClientData}>
-          <b>Cliente: </b> {cuenta.cliente}
-        </p>
       </div>
       <div className={styles.BotonContainer}>
         <Link className={styles.link} to={`/cuentas/${cuenta.numeroDeCuenta}`}>

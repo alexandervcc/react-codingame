@@ -18,11 +18,6 @@ const SideNavigator = () => {
           Movimientos
         </Link>
       </div>
-      <div className={styles.listElement}>
-        <Link className={styles.link} to="/reportes">
-          Reportes
-        </Link>
-      </div>
     </div>
   );
 };
