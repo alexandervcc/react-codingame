@@ -1,4 +1,7 @@
+import { Link } from "react-router-dom";
 import { IClient } from "../../models/IClient.interface";
+import { ServerResponse } from "../../models/Response.interface";
+import { deleteClientById } from "../../services/Client.service";
 import Boton from "../atoms/Boton";
 import styles from "./ClientHolder.module.css";
 
@@ -7,6 +10,19 @@ interface Props {
 }
 
 const ClientHolder = ({ cliente }: Props) => {
+  const handleOnDeleteButton = async (clientId?: number) => {
+    if (!clientId) {
+      return;
+    }
+    const response = await deleteClientById(clientId);
+    const body = (await response.json()) as ServerResponse;
+    if (response.ok) {
+      alert(body.title);
+    } else {
+      alert(`${body.title}: ${body.error}`);
+    }
+  };
+
   return (
     <div className={styles.Card}>
       <div className={styles.DataHolder}>
@@ -27,17 +43,17 @@ const ClientHolder = ({ cliente }: Props) => {
         </p>
       </div>
       <div className={styles.BotonContainer}>
-        <Boton
-          classname={styles.BotonEditar}
-          texto="Editar"
-          key={1}
-          onClickedButton={() => console.log("editing", cliente.id)}
-        />
+        <Link className={styles.link} to={`/clientes/${cliente.id}`}>
+          <Boton
+            classname={styles.BotonEditar}
+            texto="Editar"
+            onClickedButton={() => {}}
+          />
+        </Link>
         <Boton
           classname={styles.BotonEliminar}
           texto="Eliminar"
-          key={2}
-          onClickedButton={() => console.log("deleting", cliente.id)}
+          onClickedButton={() => handleOnDeleteButton(cliente.id)}
         />
       </div>
     </div>

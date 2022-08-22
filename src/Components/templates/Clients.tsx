@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { IClient } from "../../models/IClient.interface";
 import {
   getAllClients,
@@ -23,10 +24,10 @@ const Clients = () => {
 
   useEffect(() => {
     getAllClients();
-  }, []);
+  }, [getAllClients]);
 
   const searchForClients = async (nombreBuscar: string) => {
-    if (nombreBuscar.length == 0) {
+    if (nombreBuscar.length === 0) {
       alert("Nombre a buscar vacio.");
       return;
     }
@@ -38,6 +39,11 @@ const Clients = () => {
   return (
     <div>
       <h2>Clientes</h2>
+      <div className={styles.BotonNavegacion}>
+        <Link className={styles.link} to="/clientes/nuevo">
+          Crear Cliente
+        </Link>
+      </div>
       <div className={styles.Buscador}>
         <Buscador searchFor={searchForClients} getAll={getAllClients} />
       </div>

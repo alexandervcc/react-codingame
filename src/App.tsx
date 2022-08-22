@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import styles from "./App.module.css";
 import Header from "./Components/atoms/Header";
-import ClientCreate from "./Components/organisms/ClientCreate";
-import ClientDetails from "./Components/organisms/ClientDetails";
 import SideNavigator from "./Components/organisms/SideNavigator";
 import Account from "./Components/templates/Account";
+import ClientFormCreate from "./Components/templates/ClientFormCreate";
+import ClientFormEdit from "./Components/templates/ClientFormEdit";
 import Clients from "./Components/templates/Clients";
 import Main from "./Components/templates/Main";
 import Movement from "./Components/templates/Movement";
@@ -24,8 +24,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Main />} />
               <Route path="clientes" element={<Clients />}></Route>
-              <Route path="clientes/:clienteId" element={<ClientDetails />} />
-              <Route path="clientes/new" element={<ClientCreate />} />
+              <Route path="clientes/:clienteId" element={<ClientFormEdit />} />
+              <Route path="clientes/nuevo" element={<ClientFormCreate />} />
 
               <Route path="cuentas" element={<Account />} />
 

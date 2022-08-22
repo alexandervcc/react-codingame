@@ -3,5 +3,5 @@ export interface ServerResponse {
   dataList?: any[];
   title?: string;
   error?: string;
-  errorList?: string[];
+  errorsList?: any;
 }

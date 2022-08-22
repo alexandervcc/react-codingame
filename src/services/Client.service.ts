@@ -1,14 +1,28 @@
 import { IClient } from "../models/IClient.interface";
 import { ServerResponse } from "../models/Response.interface";
 
+const HEADERS = {
+  Accept: "application/json, text/plain, */*",
+  "Content-Type": "application/json;charset=utf-8",
+};
+
+export const getClientById = async (clientId: string): Promise<Response> => {
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}/clientes/${clientId}`,
+    {
+      method: "GET",
+      headers: HEADERS,
+    }
+  );
+  return response;
+};
+
 export const getAllClients = async (): Promise<ServerResponse> => {
   const response = await fetch(
     `${process.env.REACT_APP_API_URL}/clientes/all`,
     {
       method: "GET",
-      headers: {
-        "Content-Type": "application.json",
-      },
+      headers: HEADERS,
     }
   );
   const allClients = await response.json();
@@ -23,9 +37,7 @@ export const searchClientByName = async (
     `${process.env.REACT_APP_API_URL}/clientes?nombre=${name}`,
     {
       method: "GET",
-      headers: {
-        "Content-Type": "application.json",
-      },
+      headers: HEADERS,
     }
   );
   const foundClients = await response.json();
@@ -33,56 +45,39 @@ export const searchClientByName = async (
   return foundClients as ServerResponse;
 };
 
-export const updateClient = async (
-  clientData: IClient,
-  clienteId: Number
-): Promise<ServerResponse> => {
+export const updateClient = async (clientData: IClient): Promise<Response> => {
   const response: Response = await fetch(
-    `${process.env.REACT_APP_API_URL}/clientes/?clientId${clienteId}`,
+    `${process.env.REACT_APP_API_URL}/clientes/?clientId=${clientData.id}`,
     {
       method: "PUT",
-      headers: {
-        "Content-Type": "application.json",
-      },
+      headers: HEADERS,
       body: JSON.stringify(clientData),
     }
   );
-  const clientUpdated = await response.json();
 
-  return clientUpdated as ServerResponse;
+  return response;
 };
 
-export const createClient = async (
-  clientData: IClient
-): Promise<ServerResponse> => {
+export const createClient = async (clientData: IClient): Promise<Response> => {
   const response: Response = await fetch(
     `${process.env.REACT_APP_API_URL}/clientes/`,
     {
       method: "POST",
-      headers: {
-        "Content-Type": "application.json",
-      },
+      headers: HEADERS,
       body: JSON.stringify(clientData),
     }
   );
-  const clientCreated = await response.json();
 
-  return clientCreated as ServerResponse;
+  return response;
 };
 
-export const deleteClientById = async (
-  clientId: Number
-): Promise<ServerResponse> => {
+export const deleteClientById = async (clientId: Number): Promise<Response> => {
   const response: Response = await fetch(
     `${process.env.REACT_APP_API_URL}/clientes/?clientId=${clientId}`,
     {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application.json",
-      },
+      headers: HEADERS,
     }
   );
-  const clientDeleted = await response.json();
-
-  return clientDeleted as ServerResponse;
+  return response;
 };
