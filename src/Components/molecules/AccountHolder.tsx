@@ -40,6 +40,16 @@ const AccountHolder = ({ cuenta }: Props) => {
         </p>
       </div>
       <div className={styles.BotonContainer}>
+        <Link
+          className={styles.link}
+          to={`/movimientos/new?cuentaId=${cuenta.numeroDeCuenta}`}
+        >
+          <Boton
+            classname={styles.BotonAnadir}
+            texto="Movimiento"
+            onClickedButton={() => {}}
+          />
+        </Link>
         <Link className={styles.link} to={`/cuentas/${cuenta.numeroDeCuenta}`}>
           <Boton
             classname={styles.BotonEditar}

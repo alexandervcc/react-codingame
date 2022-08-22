@@ -9,7 +9,9 @@ import ClientFormCreate from "./Components/templates/clients/ClientFormCreate";
 import ClientFormEdit from "./Components/templates/clients/ClientFormEdit";
 import Clients from "./Components/templates/clients/Clients";
 import Main from "./Components/templates/Main";
-import Movement from "./Components/templates/Movement";
+import Movement from "./Components/templates/movements/Movement";
+import MovementCreate from "./Components/templates/movements/MovementCreate";
+import MovementEdit from "./Components/templates/movements/MovementEdit";
 import Route404 from "./Components/templates/Route404";
 
 function App() {
@@ -33,6 +35,10 @@ function App() {
               <Route path="cuentas/:cuentaId" element={<AccountFormEdit />} />
 
               <Route path="movimientos" element={<Movement />} />
+              <Route path="movimientos/new" element={<MovementCreate />} />
+              <Route path="movimientos/:movimientoId" element={<MovementEdit />} />
+
+
               <Route path="*" element={<Route404 />} />
             </Routes>
           </div>

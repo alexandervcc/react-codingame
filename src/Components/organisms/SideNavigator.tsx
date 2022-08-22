@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import SideNavOption from "../atoms/SideNavOption";
 import styles from "./SideNavigator.module.css";
 const SideNavigator = () => {
