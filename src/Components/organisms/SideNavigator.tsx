@@ -3,20 +3,26 @@ import styles from "./SideNavigator.module.css";
 const SideNavigator = () => {
   return (
     <div className={styles.sideNav}>
-      <ul>
-        <li>
-          <Link to="/clientes">Clientes</Link>
-        </li>
-        <li>
-          <Link to="/cuentas">Cuentas</Link>
-        </li>
-        <li>
-          <Link to="/movimientos">Movimientos</Link>
-        </li>
-        <li>
-          <Link to="/reportes">Reportes</Link>
-        </li>
-      </ul>
+      <div className={styles.listElement}>
+        <Link className={styles.link} to="/clientes">
+          Clientes
+        </Link>
+      </div>
+      <div className={styles.listElement}>
+        <Link className={styles.link} to="/cuentas">
+          Cuentas
+        </Link>
+      </div>
+      <div className={styles.listElement}>
+        <Link className={styles.link} to="/movimientos">
+          Movimientos
+        </Link>
+      </div>
+      <div className={styles.listElement}>
+        <Link className={styles.link} to="/reportes">
+          Reportes
+        </Link>
+      </div>
     </div>
   );
 };
