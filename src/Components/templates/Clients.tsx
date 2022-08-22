@@ -1,32 +1,45 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IClient } from "../../models/IClient.interface";
-import { getAllClients } from "../../services/Client.service";
-import Boton from "../atoms/Boton";
+import {
+  getAllClients,
+  searchClientByName,
+} from "../../services/Client.service";
+import Buscador from "../molecules/Buscador";
 import ClientHolder from "../molecules/ClientHolder";
 import styles from "./Clients.module.css";
+
+const getClientes = async (callback: (param: IClient[]) => any) => {
+  const fetchedClients = await getAllClients();
+  const listClients = fetchedClients.dataList as IClient[];
+  callback(listClients);
+};
 
 const Clients = () => {
   const [listaClientes, setListaClientes] = useState<IClient[]>([]);
 
-  useEffect(() => {
-    const getClientes = async () => {
-      const fetchedClients = await getAllClients();
-      const listClients = fetchedClients.dataList as IClient[];
-      setListaClientes(listClients);
-    };
-    getClientes();
+  const getAllClients = useCallback(async () => {
+    getClientes(setListaClientes);
   }, []);
 
-  const searchForClients = async () => {
-    console.log("seraching...");
+  useEffect(() => {
+    getAllClients();
+  }, []);
+
+  const searchForClients = async (nombreBuscar: string) => {
+    if (nombreBuscar.length == 0) {
+      alert("Nombre a buscar vacio.");
+      return;
+    }
+    const clientsFound = await searchClientByName(nombreBuscar);
+    const listClients = clientsFound.dataList as IClient[];
+    setListaClientes(listClients);
   };
 
   return (
     <div>
-      <h2>Clients</h2>
+      <h2>Clientes</h2>
       <div className={styles.Buscador}>
-        <input type="text" />
-        <Boton classname="" texto="Buscar" onClickedButton={searchForClients} />
+        <Buscador searchFor={searchForClients} getAll={getAllClients} />
       </div>
       <div className={styles.Resultados}>
         {listaClientes.length > 0 ? (

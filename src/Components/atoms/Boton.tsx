@@ -1,15 +1,18 @@
-import React from "react";
+import styles from "./Boton.module.css";
 
 interface Props {
   texto: string;
-  classname: string;
+  classname?: string;
   onClickedButton: () => any;
 }
 
-const Boton = ({ classname, texto, onClickedButton }: Props) => {
+const Boton = ({ classname = "", texto, onClickedButton }: Props) => {
   return (
     <>
-      <button className={classname} onClick={() => onClickedButton()}>
+      <button
+        className={`${classname} ${styles.Boton}`}
+        onClick={() => onClickedButton()}
+      >
         {texto}
       </button>
     </>

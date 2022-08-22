@@ -1,0 +1,10 @@
+.Buscador {
+  display: flex;
+  flex-direction: row;
+}
+
+.Resultados {
+  margin-bottom: 1px;
+  margin-top: 1rem;
+  border-top: 1px solid rgba(145, 145, 145, 0.5);
+}
