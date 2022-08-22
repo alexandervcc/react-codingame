@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import styles from "./App.module.css";
 import Header from "./Components/atoms/Header";
 import SideNavigator from "./Components/organisms/SideNavigator";
-import Account from "./Components/templates/Account";
+import Account from "./Components/templates/accounts/Account";
 import ClientFormCreate from "./Components/templates/clients/ClientFormCreate";
 import ClientFormEdit from "./Components/templates/clients/ClientFormEdit";
 import Clients from "./Components/templates/clients/Clients";

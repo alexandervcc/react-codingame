@@ -1,4 +1,3 @@
-import { IAccount } from "../models/IAccount.interface";
 import { ServerResponse } from "../models/Response.interface";
 
 const HEADERS = {
@@ -14,4 +13,17 @@ export const getAllAccounts = async (): Promise<ServerResponse> => {
   const allClients = await response.json();
 
   return allClients as ServerResponse;
+};
+
+export const deleteAccountById = async (
+  accountId: number
+): Promise<Response> => {
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}/cuentas/?accountId=${accountId}`,
+    {
+      method: "DELETE",
+      headers: HEADERS,
+    }
+  );
+  return response;
 };

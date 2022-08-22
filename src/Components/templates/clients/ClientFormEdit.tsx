@@ -6,18 +6,7 @@ import { getClientById, updateClient } from "../../../services/Client.service";
 
 import styles from "./ClientFormEdit.module.css";
 import { useNavigate, useParams } from "react-router-dom";
-
-const isNumber = (str: string): boolean => {
-  if (typeof str !== "string") {
-    return false;
-  }
-
-  if (str.trim() === "") {
-    return false;
-  }
-
-  return !Number.isNaN(Number(str));
-};
+import { isNumber } from "../../../utils/Validation";
 
 const ClientFormEdit = () => {
   const params = useParams();

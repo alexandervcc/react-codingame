@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { IAccount } from "../../models/IAccount.interface";
 import { ServerResponse } from "../../models/Response.interface";
-import { deleteClientById } from "../../services/Client.service";
+import { deleteAccountById } from "../../services/Account.service";
 import Boton from "../atoms/Boton";
 import styles from "./ClientHolder.module.css";
 
@@ -14,7 +14,7 @@ const AccountHolder = ({ cuenta }: Props) => {
     if (!accountId) {
       return;
     }
-    const response = await deleteClientById(accountId);
+    const response = await deleteAccountById(accountId);
     const body = (await response.json()) as ServerResponse;
     if (response.ok) {
       alert(body.title);
@@ -36,7 +36,7 @@ const AccountHolder = ({ cuenta }: Props) => {
           <b>Saldo:</b> {cuenta.saldoInicial}
         </p>
         <p className={styles.ClientData}>
-          <b>Activada\(Estado\):</b> {cuenta.estado ? "Activa" : "Inactiva"}
+          <b>Activada(Estado):</b> {cuenta.estado ? "Activa" : "Inactiva"}
         </p>
         <p className={styles.ClientData}>
           <b>Cliente: </b> {cuenta.cliente}

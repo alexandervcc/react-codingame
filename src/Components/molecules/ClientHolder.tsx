@@ -43,6 +43,16 @@ const ClientHolder = ({ cliente }: Props) => {
         </p>
       </div>
       <div className={styles.BotonContainer}>
+        <Link
+          className={styles.link}
+          to={`/cuentas/new/?cliente=${cliente.id}`}
+        >
+          <Boton
+            classname={styles.BotonAnadir}
+            texto="Crear Cuenta"
+            onClickedButton={() => {}}
+          />
+        </Link>
         <Link className={styles.link} to={`/clientes/${cliente.id}`}>
           <Boton
             classname={styles.BotonEditar}
