@@ -1,5 +1,5 @@
 import { IAccount } from "../models/IAccount.interface";
-import { ServerResponse } from "../models/ServerResponse.interface";
+import { ResponseDto } from "../models/ResponseDto.interface";
 
 const HEADERS = {
   Accept: "application/json, text/plain, */*",
@@ -18,14 +18,14 @@ export const getAccountById = async (accountId: number): Promise<Response> => {
   return response;
 };
 
-export const getAllAccounts = async (): Promise<ServerResponse> => {
+export const getAllAccounts = async (): Promise<ResponseDto> => {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/cuentas/all`, {
     method: "GET",
     headers: HEADERS,
   });
   const allClients = await response.json();
 
-  return allClients as ServerResponse;
+  return allClients as ResponseDto;
 };
 
 export const updateAccount = async (

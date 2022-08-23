@@ -2,12 +2,17 @@ import { useEffect, useState } from "react";
 import { IClient } from "../../../models/IClient.interface";
 import { IMovement } from "../../../models/IMovement.interface";
 import { IMovementReport } from "../../../models/IMovementReport.interface";
-import { ServerResponse } from "../../../models/ServerResponse.interface";
+import { ResponseDto } from "../../../models/ResponseDto.interface";
 import {
   getAllMovements,
   deleteMovementById,
   getAllMovementsByClient,
 } from "../../../services/Movements.service";
+import {
+  downloadPDFMovementsReportByClient,
+  openPDFInNewTab,
+} from "../../../services/Report.service";
+import { checkValidArguments_MovementsSearch } from "../../../utils/Validation";
 import Boton from "../../atoms/Boton";
 import BuscadorFechas from "../../molecules/BuscadorFechas";
 
@@ -20,19 +25,20 @@ const Movement = () => {
   const downloadAllMovements = async () => {
     const response = await getAllMovements();
     if (response.ok) {
-      const bodyRes = (await response.json()) as ServerResponse;
+      const bodyRes = (await response.json()) as ResponseDto;
       const movements = bodyRes.data["movimientos"] as IMovement[];
       movements.forEach((mov) => (mov.fecha = new Date(mov.fecha)));
       setListMovements(movements);
     }
   };
+
   useEffect(() => {
     downloadAllMovements();
   }, []);
 
   const handleMovememntDelete = async (movementId: number) => {
     const response = await deleteMovementById(movementId);
-    const bodyRes = (await response.json()) as ServerResponse;
+    const bodyRes = (await response.json()) as ResponseDto;
     if (response.ok) {
       alert("Info: " + bodyRes.title);
     } else {
@@ -45,20 +51,22 @@ const Movement = () => {
     initialDate: string,
     finalDate: string
   ) => {
-    if (nombreCliente.length === 0 || !nombreCliente) {
-      alert("Cliente a buscar vacio.");
+    if (
+      !checkValidArguments_MovementsSearch(
+        nombreCliente,
+        initialDate,
+        finalDate
+      )
+    ) {
       return;
     }
-    if (!initialDate || !finalDate) {
-      alert("Fechas sin escoger.");
-      return;
-    }
+
     const response = await getAllMovementsByClient(
       nombreCliente,
       initialDate,
       finalDate
     );
-    const resBody = (await response.json()) as ServerResponse;
+    const resBody = (await response.json()) as ResponseDto;
     if (!response.ok) {
       alert(`Error: ${resBody.error}`);
       return;
@@ -71,13 +79,41 @@ const Movement = () => {
     setClientMovement(listMovements.cliente);
   };
 
+  const downloadPDFRerport = async (
+    nombreCliente: string,
+    initialDate: string,
+    finalDate: string
+  ) => {
+    if (
+      !checkValidArguments_MovementsSearch(
+        nombreCliente,
+        initialDate,
+        finalDate
+      )
+    ) {
+      return;
+    }
+    const response = await downloadPDFMovementsReportByClient(
+      nombreCliente,
+      initialDate,
+      finalDate
+    );
+    if (!response.ok) {
+      const resBody = (await response.json()) as ResponseDto;
+      alert(`${resBody.title}: ${resBody.error}`);
+      return;
+    }
+    const pdfBlob = await response.blob();
+    openPDFInNewTab(pdfBlob);
+  };
+
   return (
     <div>
       <h2>Movimientos</h2>
       <BuscadorFechas
         getAll={downloadAllMovements}
         searchFor={handleMovementsSearch}
-        downloadReport={() => console.log("reporte")}
+        downloadReport={downloadPDFRerport}
       />
       <hr />
       <div>

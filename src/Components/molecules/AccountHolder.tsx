@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { IAccount } from "../../models/IAccount.interface";
-import { ServerResponse } from "../../models/ServerResponse.interface";
+import { ResponseDto } from "../../models/ResponseDto.interface";
 import { deleteAccountById } from "../../services/Account.service";
 import Boton from "../atoms/Boton";
 import styles from "./ClientHolder.module.css";
@@ -15,7 +15,7 @@ const AccountHolder = ({ cuenta }: Props) => {
       return;
     }
     const response = await deleteAccountById(accountId);
-    const body = (await response.json()) as ServerResponse;
+    const body = (await response.json()) as ResponseDto;
     if (response.ok) {
       alert(body.title);
     } else {

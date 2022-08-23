@@ -1,4 +1,4 @@
-export interface ServerResponse {
+export interface ResponseDto {
   data?: any;
   dataList?: any[];
   title?: string;

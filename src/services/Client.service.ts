@@ -1,5 +1,5 @@
 import { IClient } from "../models/IClient.interface";
-import { ServerResponse } from "../models/ServerResponse.interface";
+import { ResponseDto } from "../models/ResponseDto.interface";
 
 const HEADERS = {
   Accept: "application/json, text/plain, */*",
@@ -17,7 +17,7 @@ export const getClientById = async (clientId: string): Promise<Response> => {
   return response;
 };
 
-export const getAllClients = async (): Promise<ServerResponse> => {
+export const getAllClients = async (): Promise<ResponseDto> => {
   const response = await fetch(
     `${process.env.REACT_APP_API_URL}/clientes/all`,
     {
@@ -27,12 +27,12 @@ export const getAllClients = async (): Promise<ServerResponse> => {
   );
   const allClients = await response.json();
 
-  return allClients as ServerResponse;
+  return allClients as ResponseDto;
 };
 
 export const searchClientByName = async (
   name: string
-): Promise<ServerResponse> => {
+): Promise<ResponseDto> => {
   const response: Response = await fetch(
     `${process.env.REACT_APP_API_URL}/clientes?nombre=${name}`,
     {
@@ -42,7 +42,7 @@ export const searchClientByName = async (
   );
   const foundClients = await response.json();
 
-  return foundClients as ServerResponse;
+  return foundClients as ResponseDto;
 };
 
 export const updateClient = async (clientData: IClient): Promise<Response> => {

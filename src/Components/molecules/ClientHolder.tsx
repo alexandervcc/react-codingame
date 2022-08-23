@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { IClient } from "../../models/IClient.interface";
-import { ServerResponse } from "../../models/ServerResponse.interface";
+import { ResponseDto } from "../../models/ResponseDto.interface";
 import { deleteClientById } from "../../services/Client.service";
 import Boton from "../atoms/Boton";
 import styles from "./ClientHolder.module.css";
@@ -15,7 +15,7 @@ const ClientHolder = ({ cliente }: Props) => {
       return;
     }
     const response = await deleteClientById(clientId);
-    const body = (await response.json()) as ServerResponse;
+    const body = (await response.json()) as ResponseDto;
     if (response.ok) {
       alert(body.title);
     } else {

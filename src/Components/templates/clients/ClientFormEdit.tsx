@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { IClient } from "../../../models/IClient.interface";
-import { ServerResponse } from "../../../models/ServerResponse.interface";
+import { ResponseDto } from "../../../models/ResponseDto.interface";
 import { getClientById, updateClient } from "../../../services/Client.service";
 
 import styles from "./ClientFormEdit.module.css";
@@ -24,7 +24,7 @@ const ClientFormEdit = () => {
       if (!respuesta.ok) {
         navigate("/404");
       }
-      const reponseBody = (await respuesta.json()) as ServerResponse;
+      const reponseBody = (await respuesta.json()) as ResponseDto;
       const clienteAEditar = reponseBody.data as IClient;
       setValue("direccion", clienteAEditar.direccion);
       setValue("contrasena", clienteAEditar.contrasena);
@@ -41,7 +41,7 @@ const ClientFormEdit = () => {
   const onSubmit = async (newClient: IClient) => {
     console.log("actualizando: ", newClient);
     const response = await updateClient(newClient);
-    const body = (await response.json()) as ServerResponse;
+    const body = (await response.json()) as ResponseDto;
     console.log("res:", body);
     if (response.ok) {
       alert(body.title);

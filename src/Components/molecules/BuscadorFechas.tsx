@@ -5,7 +5,7 @@ import styles from "./BuscadorFechas.module.css";
 interface Props {
   searchFor: (value: any, startDate: any, finalDate: string) => any;
   getAll: () => any;
-  downloadReport: () => any;
+  downloadReport: (value: any, startDate: any, finalDate: string) => any;
 }
 
 const BuscadorFechas = ({ getAll, searchFor, downloadReport }: Props) => {
@@ -48,7 +48,7 @@ const BuscadorFechas = ({ getAll, searchFor, downloadReport }: Props) => {
       <Boton
         classname={styles.botonDescargar}
         texto="Descargar Reporte"
-        onClickedButton={downloadReport}
+        onClickedButton={() => downloadReport(valueToSearch, initialDate, finalDate)}
       />
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { IAccount } from "../../../models/IAccount.interface";
-import { ServerResponse } from "../../../models/ServerResponse.interface";
+import { ResponseDto } from "../../../models/ResponseDto.interface";
 import {
   getAccountById,
   updateAccount,
@@ -25,7 +25,7 @@ const AccountFormEdit = () => {
       if (!respuesta.ok) {
         navigate("/404");
       }
-      const reponseBody = (await respuesta.json()) as ServerResponse;
+      const reponseBody = (await respuesta.json()) as ResponseDto;
       const cuentaAEditar = reponseBody.data as IAccount;
       setValue("estado", cuentaAEditar.estado);
       setValue("saldoInicial", cuentaAEditar.saldoInicial);
@@ -37,7 +37,7 @@ const AccountFormEdit = () => {
   const onSubmit = async (newClient: IAccount) => {
     console.log("actualizando: ", newClient);
     const response = await updateAccount(+cuentaId, newClient);
-    const body = (await response.json()) as ServerResponse;
+    const body = (await response.json()) as ResponseDto;
     console.log("res:", body);
     if (response.ok) {
       alert(body.title);

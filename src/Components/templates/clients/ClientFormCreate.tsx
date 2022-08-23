@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { IClient } from "../../../models/IClient.interface";
-import { ServerResponse } from "../../../models/ServerResponse.interface";
+import { ResponseDto } from "../../../models/ResponseDto.interface";
 import { createClient } from "../../../services/Client.service";
 
 import styles from "./ClientFormCreate.module.css";
@@ -18,7 +18,7 @@ const ClientFormCreate = ({ cliente }: Props) => {
 
   const onSubmit = async (newClient: IClient) => {
     const response = await createClient(newClient);
-    const body = (await response.json()) as ServerResponse;
+    const body = (await response.json()) as ResponseDto;
     if (response.ok) {
       alert(body.title);
     } else {
