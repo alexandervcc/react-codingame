@@ -6,7 +6,7 @@ export interface IMovement {
   saldoInicial: number;
   saldoDisponible: number;
   tipoCuentaOrigen: string;
-  cuentaOrigen: string;
+  cuentaOrigen: number;
   estado: boolean;
   cliente: string;
 }

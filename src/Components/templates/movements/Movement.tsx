@@ -14,6 +14,7 @@ import {
 } from "../../../services/Report.service";
 import { checkValidArguments_MovementsSearch } from "../../../utils/Validation";
 import Boton from "../../atoms/Boton";
+import TableDataRow from "../../atoms/TableDataRow";
 import BuscadorFechas from "../../molecules/BuscadorFechas";
 
 import styles from "./Movement.module.css";
@@ -135,34 +136,13 @@ const Movement = () => {
             </thead>
             <tbody>
               {listMovements?.map((movement) => (
-                <tr key={movement.id}>
-                  <td>{movement.fecha.toLocaleString()}</td>
-                  <td>
-                    {movement.cliente
-                      ? movement.cliente
-                      : clientMovement?.nombre}
-                  </td>
-                  <td>{movement.tipoCuentaOrigen}</td>
-                  <td>{movement.cuentaOrigen}</td>
-                  <td>{movement.tipoMovimiento}</td>
-                  <td>{movement.saldoInicial}</td>
-                  <td>{movement.valor}</td>
-                  <td>{movement.saldoDisponible}</td>
-                  <td>
-                    <Boton
-                      tooltip="Editar"
-                      classname={`${styles.circleButton} ${styles.editButton}`}
-                      onClickedButton={() => {}}
-                      texto="√"
-                    />
-                    <Boton
-                      tooltip="Eliminar"
-                      texto="x"
-                      classname={`${styles.circleButton} ${styles.deleteButton}`}
-                      onClickedButton={() => handleMovememntDelete(movement.id)}
-                    />
-                  </td>
-                </tr>
+                <TableDataRow
+                  key={movement.id}
+                  movement={movement}
+                  clientName={clientMovement?.nombre}
+                  deleteRowData={deleteMovementById}
+                  urlEditRowData="movimientos"
+                />
               ))}
             </tbody>
           </table>

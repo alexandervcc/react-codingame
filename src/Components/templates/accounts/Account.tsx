@@ -1,21 +1,17 @@
-import { useCallback, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import { IAccount } from "../../../models//IAccount.interface";
 import { getAllAccounts } from "../../../services/Account.service";
 import styles from "./Account.module.css";
 import AccountHolder from "../../molecules/AccountHolder";
 
-const downloadAllAcounts = async (callback: (param: IAccount[]) => any) => {
-  const fetchedAccounts = await getAllAccounts();
-  const listAccounts = fetchedAccounts.dataList as IAccount[];
-  callback(listAccounts);
-};
-
 const Account = () => {
   const [listaCuentas, setListaCuentas] = useState<IAccount[]>([]);
 
-  const getAllAcounts = useCallback(async () => {
-    downloadAllAcounts(setListaCuentas);
-  }, []);
+  const getAllAcounts = async () => {
+    const fetchedAccounts = await getAllAccounts();
+    const listAccounts = fetchedAccounts.dataList as IAccount[];
+    setListaCuentas(listAccounts);
+  };
 
   useEffect(() => {
     getAllAcounts();

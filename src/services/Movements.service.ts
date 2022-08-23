@@ -1,7 +1,27 @@
+import { IMovement } from "../models/IMovement.interface";
+
 const HEADERS = {
   Accept: "application/json, text/plain, */*",
   "Content-Type": "application/json;charset=utf-8",
 };
+
+export const createNewMovement = async (
+  newMovement: IMovement
+): Promise<Response> => {
+  const bodyReq = JSON.stringify(newMovement);
+  console.log("res: ", bodyReq);
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}/movimientos/`,
+    {
+      method: "POST",
+      headers: HEADERS,
+      body: bodyReq,
+    }
+  );
+  return response;
+};
+
+export const updateMovement = async () => {};
 
 export const getAllMovements = async (): Promise<Response> => {
   const response = await fetch(
@@ -18,7 +38,7 @@ export const getAllMovementsByClient = async (
   clienteName: string,
   fechaInicio: string,
   fechaFin: string
-): Promise<Response> => { 
+): Promise<Response> => {
   const response = await fetch(
     `${process.env.REACT_APP_API_URL}/movimientos/?clientName=${clienteName}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`,
     {

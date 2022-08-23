@@ -7,6 +7,7 @@ const HEADERS = {
   "Access-Control-Allow-Origin": "*",
 };
 
+
 export const getAccountById = async (accountId: number): Promise<Response> => {
   const response = await fetch(
     `${process.env.REACT_APP_API_URL}/cuentas/?accountId=${accountId}`,
