@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate} from "react-router-dom";
 import { IAccount } from "../../../models/IAccount.interface";
 import { IClient } from "../../../models/IClient.interface";
-import { ServerResponse } from "../../../models/Response.interface";
+import { ServerResponse } from "../../../models/ServerResponse.interface";
 import {
   createNewAccountForUser,
 } from "../../../services/Account.service";

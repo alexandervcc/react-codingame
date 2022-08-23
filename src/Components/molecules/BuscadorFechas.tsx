@@ -2,15 +2,17 @@ import { useState } from "react";
 import Boton from "../atoms/Boton";
 import styles from "./BuscadorFechas.module.css";
 
-
 interface Props {
-  searchFor: (value: string) => any;
+  searchFor: (value: any, startDate: any, finalDate: string) => any;
   getAll: () => any;
   downloadReport: () => any;
 }
 
 const BuscadorFechas = ({ getAll, searchFor, downloadReport }: Props) => {
   const [valueToSearch, setValueToSearch] = useState("");
+  const [initialDate, setInitialDate] = useState<any>();
+  const [finalDate, setFinalDate] = useState<any>();
+
   return (
     <div className={styles.buscador}>
       <input
@@ -20,19 +22,27 @@ const BuscadorFechas = ({ getAll, searchFor, downloadReport }: Props) => {
         onChange={(e) => setValueToSearch(e.target.value)}
       />
       <label>Fecha Inicio: </label>
-      <input type="date" className={styles.datePicker} />
+      <input
+        type="date"
+        className={styles.datePicker}
+        onChange={(e) => setInitialDate(`${e.target.value}T00:00:00`)}
+      />
       <label>Fecha Fin : </label>
-      <input type="date" className={styles.datePicker}/>
+      <input
+        type="date"
+        className={styles.datePicker}
+        onChange={(e) => setFinalDate(`${e.target.value}T23:59:59`)}
+      />
 
       <Boton
         classname={styles.BotonBuscar}
         texto="Buscar"
-        onClickedButton={() => searchFor(valueToSearch)}
+        onClickedButton={() => searchFor(valueToSearch, initialDate, finalDate)}
       />
       <Boton
         classname={styles.BotonLimpiar}
         texto="Limpiar"
-        onClickedButton={getAll}
+        onClickedButton={() => getAll()}
       />
 
       <Boton

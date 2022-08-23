@@ -1,5 +1,5 @@
 import { IClient } from "../models/IClient.interface";
-import { ServerResponse } from "../models/Response.interface";
+import { ServerResponse } from "../models/ServerResponse.interface";
 
 const HEADERS = {
   Accept: "application/json, text/plain, */*",

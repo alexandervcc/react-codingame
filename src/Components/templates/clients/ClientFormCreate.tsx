@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { IClient } from "../../../models/IClient.interface";
-import { ServerResponse } from "../../../models/Response.interface";
+import { ServerResponse } from "../../../models/ServerResponse.interface";
 import { createClient } from "../../../services/Client.service";
 
 import styles from "./ClientFormCreate.module.css";

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { IClient } from "../../models/IClient.interface";
-import { ServerResponse } from "../../models/Response.interface";
+import { ServerResponse } from "../../models/ServerResponse.interface";
 import { deleteClientById } from "../../services/Client.service";
 import Boton from "../atoms/Boton";
 import styles from "./ClientHolder.module.css";

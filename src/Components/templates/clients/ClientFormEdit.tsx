@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { IClient } from "../../../models/IClient.interface";
-import { ServerResponse } from "../../../models/Response.interface";
+import { ServerResponse } from "../../../models/ServerResponse.interface";
 import { getClientById, updateClient } from "../../../services/Client.service";
 
 import styles from "./ClientFormEdit.module.css";

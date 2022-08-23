@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { IAccount } from "../../models/IAccount.interface";
-import { ServerResponse } from "../../models/Response.interface";
+import { ServerResponse } from "../../models/ServerResponse.interface";
 import { deleteAccountById } from "../../services/Account.service";
 import Boton from "../atoms/Boton";
 import styles from "./ClientHolder.module.css";

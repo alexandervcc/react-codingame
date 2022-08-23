@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { IAccount } from "../../../models/IAccount.interface";
-import { ServerResponse } from "../../../models/Response.interface";
+import { ServerResponse } from "../../../models/ServerResponse.interface";
 import {
   getAccountById,
   updateAccount,
